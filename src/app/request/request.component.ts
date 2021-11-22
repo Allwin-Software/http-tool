@@ -16,7 +16,13 @@ export class RequestComponent implements OnInit {
       text: 'Get',
     },
   ];
+  headers: any[] = [];
   constructor() {}
 
   ngOnInit(): void {}
+
+  onAuthUpdated(authType: string, data: any) {
+    const header = { key: 'Authorization', value: `${authType} ${data}` };
+    this.headers.push(header);
+  }
 }

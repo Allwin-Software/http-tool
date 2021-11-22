@@ -9,6 +9,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { RequestComponent } from './request.component';
+import { BasicAuthenticationModule } from '../basic-authentication/basic-authentication.module';
+import { HeadersModule } from '../headers/headers.module';
 
 const routes: Routes = [
   {
@@ -27,6 +29,8 @@ const routes: Routes = [
     MatSelectModule,
     MatExpansionModule,
     MatTabsModule,
+    BasicAuthenticationModule,
+    HeadersModule,
   ],
   declarations: [RequestComponent],
 })

@@ -1,0 +1,30 @@
+<div>
+  <div class="flex-box" *ngFor="let header of headers">
+    <div>
+      <mat-form-field>
+        <mat-label>Header</mat-label>
+        <input type="text" matInput [(ngModel)]="header.key" />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Value</mat-label>
+        <input type="text" matInput [(ngModel)]="header.value" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="flex-box">
+    <div>
+      <mat-form-field>
+        <mat-label>Header</mat-label>
+        <input type="email" matInput />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Value</mat-label>
+        <input type="email" matInput />
+      </mat-form-field>
+    </div>
+  </div>
+</div>
