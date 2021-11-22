@@ -1,0 +1,61 @@
+<mat-accordion>
+  <mat-expansion-panel expanded>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Request </mat-panel-title>
+      <mat-panel-description> This is a summary of the content </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="flex-box flex-s-center">
+      <div class="m-r-24">
+        <mat-form-field>
+          <mat-select>
+            <mat-option *ngFor="let method of methods" [value]="method.id">{{ method.text }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="flex-grow-1 m-r-24">
+        <mat-form-field class="w-100">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput />
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button color="primary">Send</button>
+      </div>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Authentication</mat-panel-title>
+      <mat-panel-description> Currently I am </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-tab-group>
+      <mat-tab label="Basic">
+        <app-basic-authentication></app-basic-authentication>
+      </mat-tab>
+      <mat-tab label="Second"> Content 2 </mat-tab>
+      <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Headers</mat-panel-title>
+      <mat-panel-description> Currently I am </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-tab-group>
+      <mat-tab label="Basic"> </mat-tab>
+      <mat-tab label="Second"> Content 2 </mat-tab>
+      <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Response</mat-panel-title>
+      <mat-panel-description> Currently I am </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-tab-group>
+      <mat-tab label="Basic"> </mat-tab>
+      <mat-tab label="Second"> Content 2 </mat-tab>
+      <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group>
+  </mat-expansion-panel>
+</mat-accordion>
