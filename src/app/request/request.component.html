@@ -2,24 +2,29 @@
   <mat-expansion-panel expanded>
     <mat-expansion-panel-header>
       <mat-panel-title> Request </mat-panel-title>
-      <mat-panel-description> This is a summary of the content </mat-panel-description>
+      <mat-panel-description>
+        <ng-container *ngIf="requestForm.controls['url']?.value">
+          <b>{{ requestForm.controls["method"]?.value?.text }}</b> &nbsp;&nbsp;
+          <span>{{ requestForm.controls["url"]?.value }}</span>
+        </ng-container>
+      </mat-panel-description>
     </mat-expansion-panel-header>
-    <div class="flex-box flex-s-center">
+    <div class="flex-box flex-s-center" [formGroup]="requestForm">
       <div class="m-r-24">
         <mat-form-field>
-          <mat-select>
-            <mat-option *ngFor="let method of methods" [value]="method.id">{{ method.text }}</mat-option>
+          <mat-select formControlName="method">
+            <mat-option *ngFor="let method of methods" [value]="method">{{ method.text }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="flex-grow-1 m-r-24">
         <mat-form-field class="w-100">
           <mat-label>URL</mat-label>
-          <input type="email" matInput />
+          <input type="text" matInput formControlName="url" />
         </mat-form-field>
       </div>
       <div>
-        <button mat-raised-button color="primary">Send</button>
+        <button mat-raised-button color="primary" (click)="send()">Send</button>
       </div>
     </div>
   </mat-expansion-panel>
