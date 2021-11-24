@@ -1,1 +1,18 @@
-<router-outlet></router-outlet>
+<div class="m-h-100 flex-box-column">
+  <div>
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="toggleSideNav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Compose</span>
+    </mat-toolbar>
+  </div>
+  <div class="flex-grow-1">
+    <mat-sidenav-container>
+      <mat-sidenav mode="side" [opened]="sideNavOpen">Sidenav content</mat-sidenav>
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>
