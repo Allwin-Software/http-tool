@@ -14,13 +14,6 @@ import { RequestComponent } from './request.component';
 import { BasicAuthenticationModule } from '../basic-authentication/basic-authentication.module';
 import { HeadersModule } from '../headers/headers.module';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: RequestComponent,
-  },
-];
-
 @NgModule({
   imports: [
     CommonModule,
