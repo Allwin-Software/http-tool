@@ -1,1 +1,27 @@
-<p>request-group works!</p>
+<mat-tab-group
+  (selectedTabChange)="tabChange($event)"
+  [selectedIndex]="selectedTab.value"
+  (selectedIndexChange)="selectedTab.setValue($event)"
+>
+  <ng-container *ngFor="let tab of tabs">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        {{ tab.label }} &nbsp;
+        <button *ngIf="tab.closeEnabled" mat-icon-button>
+          <mat-icon>close</mat-icon>
+        </button>
+      </ng-template>
+      <ng-container>
+        <app-request></app-request>
+      </ng-container>
+    </mat-tab>
+  </ng-container>
+  <mat-tab label="new">
+    <ng-template mat-tab-label>
+      New &nbsp;
+      <button mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

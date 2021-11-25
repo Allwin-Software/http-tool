@@ -17,7 +17,6 @@ import { HeadersModule } from '../headers/headers.module';
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -30,5 +29,6 @@ import { HeadersModule } from '../headers/headers.module';
     HttpClientModule,
   ],
   declarations: [RequestComponent],
+  exports: [RequestComponent],
 })
 export class RequestModule {}
