@@ -13,6 +13,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RequestComponent } from './request.component';
 import { BasicAuthenticationModule } from '../basic-authentication/basic-authentication.module';
 import { HeadersModule } from '../headers/headers.module';
+import { AceModule } from '../ace/ace.module';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { HeadersModule } from '../headers/headers.module';
     BasicAuthenticationModule,
     HeadersModule,
     HttpClientModule,
+    AceModule,
   ],
   declarations: [RequestComponent],
   exports: [RequestComponent],
