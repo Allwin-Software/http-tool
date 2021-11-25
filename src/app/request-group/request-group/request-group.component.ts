@@ -13,10 +13,8 @@ export class RequestGroupComponent implements OnInit {
     {
       label: 'New tab',
       closeEnabled: true,
-    },
-    {
-      label: 'New tab1',
-      closeEnabled: true,
+      request: null,
+      toolTip: 'New tab',
     },
   ];
   constructor() {}
@@ -26,6 +24,8 @@ export class RequestGroupComponent implements OnInit {
   tabChange(event: MatTabChangeEvent) {
     if (event.tab.textLabel === 'new') {
       this.addNewTab();
+    } else {
+      this.selectedTab.setValue(event.index);
     }
   }
 
@@ -33,8 +33,28 @@ export class RequestGroupComponent implements OnInit {
     const tab = {
       label: 'New tab',
       closeEnabled: true,
+      request: null,
+      toolTip: 'New tab',
     };
     this.tabs.push(tab);
-    this.selectedTab.setValue(this.tabs.length - 1);
+    setTimeout(() => {
+      this.selectedTab.setValue(this.tabs.length - 1);
+    }, 0);
+  }
+
+  closeTab(tab: any, index: number) {
+    const isLastTab = this.tabs.length - 1 === index;
+    this.tabs.splice(index, 1);
+    if (isLastTab) {
+      setTimeout(() => {
+        this.selectedTab.setValue(this.tabs.length - 1);
+      }, 0);
+    }
+  }
+
+  requestUpdated(request: any, tab: any, index: number) {
+    this.tabs[index].request = request;
+    this.tabs[index].label = `${request.url}`.substring(0, 15);
+    this.tabs[index].toolTip = `${request.url}`;
   }
 }

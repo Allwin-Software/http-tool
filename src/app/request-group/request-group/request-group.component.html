@@ -1,18 +1,14 @@
-<mat-tab-group
-  (selectedTabChange)="tabChange($event)"
-  [selectedIndex]="selectedTab.value"
-  (selectedIndexChange)="selectedTab.setValue($event)"
->
-  <ng-container *ngFor="let tab of tabs">
-    <mat-tab>
+<mat-tab-group (selectedTabChange)="tabChange($event)" [selectedIndex]="selectedTab.value">
+  <ng-container *ngFor="let tab of tabs; let i = index">
+    <mat-tab [matTooltip]="tab.toolTip">
       <ng-template mat-tab-label>
         {{ tab.label }} &nbsp;
-        <button *ngIf="tab.closeEnabled" mat-icon-button>
+        <button *ngIf="tab.closeEnabled" mat-icon-button (click)="closeTab(tab, i)">
           <mat-icon>close</mat-icon>
         </button>
       </ng-template>
       <ng-container>
-        <app-request></app-request>
+        <app-request (requestUpdated)="requestUpdated($event, tab, i)"></app-request>
       </ng-container>
     </mat-tab>
   </ng-container>

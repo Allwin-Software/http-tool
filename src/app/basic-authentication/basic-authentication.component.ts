@@ -15,12 +15,15 @@ export class BasicAuthenticationComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authForm.valueChanges.subscribe((formValue) => {
+      const basicString = `${formValue.userName}:${formValue.password}`;
+      const base64String = btoa(basicString);
+      this.authUpdated.emit(base64String);
+    });
+  }
 
   saveBasicAuth() {
     const formValue = this.authForm.value;
-    const basicString = `${formValue.userName}:${formValue.password}`;
-    const base64String = btoa(basicString);
-    this.authUpdated.emit(base64String);
   }
 }

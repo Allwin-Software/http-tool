@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-request',
@@ -8,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./request.component.scss'],
 })
 export class RequestComponent implements OnInit {
+  @Output() requestUpdated = new EventEmitter();
   methods = [
     {
       id: 'get',
@@ -23,14 +25,23 @@ export class RequestComponent implements OnInit {
     method: [this.methods[0]],
     url: [''],
   });
+  requestFormChange$: Subscription | null = null;
 
   constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.requestFormChange$ = this.requestForm.valueChanges.subscribe(() => this.emitRequestChange());
+  }
 
   onAuthUpdated(authType: string, data: any) {
     const header = { key: 'Authorization', value: `${authType} ${data}` };
-    this.headers.push(header);
+    const authorizationHeader = this.headers.find((header) => header.key === 'Authorization');
+    if (authorizationHeader) {
+      authorizationHeader.value = `${authType} ${data}`;
+    } else {
+      this.headers.push(header);
+    }
+    this.emitRequestChange();
   }
 
   send() {
@@ -55,5 +66,15 @@ export class RequestComponent implements OnInit {
       return coll;
     }, {});
     return this.httpClient.get(formValue.url, { headers: new HttpHeaders(httpHeaders) });
+  }
+
+  emitRequestChange() {
+    const formValue = this.requestForm.value;
+    const request = {
+      method: formValue.method,
+      url: formValue.url,
+      headers: this.headers,
+    };
+    this.requestUpdated.emit(request);
   }
 }
