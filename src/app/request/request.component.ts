@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { HttpOptions, ResponseType } from '@tauri-apps/api/http';
 
 @Component({
   selector: 'app-request',
@@ -27,15 +28,22 @@ export class RequestComponent implements OnInit {
   });
   requestFormChange$: Subscription | null = null;
 
-  constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private httpClient: HttpClient
+  ) {}
 
   ngOnInit(): void {
-    this.requestFormChange$ = this.requestForm.valueChanges.subscribe(() => this.emitRequestChange());
+    this.requestFormChange$ = this.requestForm.valueChanges.subscribe(() =>
+      this.emitRequestChange()
+    );
   }
 
   onAuthUpdated(authType: string, data: any) {
     const header = { key: 'Authorization', value: `${authType} ${data}` };
-    const authorizationHeader = this.headers.find((header) => header.key === 'Authorization');
+    const authorizationHeader = this.headers.find(
+      (header) => header.key === 'Authorization'
+    );
     if (authorizationHeader) {
       authorizationHeader.value = `${authType} ${data}`;
     } else {
@@ -54,10 +62,6 @@ export class RequestComponent implements OnInit {
         break;
       }
     }
-
-    request?.subscribe((result) => {
-      console.log(result);
-    });
   }
 
   httpGet(formValue: any) {
@@ -65,7 +69,15 @@ export class RequestComponent implements OnInit {
       coll[header.key] = header.value;
       return coll;
     }, {});
-    return this.httpClient.get(formValue.url, { headers: new HttpHeaders(httpHeaders) });
+    const fetchOptions: HttpOptions = {
+      method: 'GET',
+      url: formValue.url,
+      headers: httpHeaders,
+      responseType: ResponseType.Text,
+    };
+    window.__TAURI__.http
+      .fetch(formValue.url, fetchOptions)
+      .then((result: any) => console.log(result));
   }
 
   emitRequestChange() {

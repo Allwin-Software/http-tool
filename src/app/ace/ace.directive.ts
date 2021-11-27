@@ -1,14 +1,20 @@
 declare const ace: any;
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
   selector: '[appAce]',
 })
 export class AceDirective {
+  @Input() editorData = '';
+  editor: any = null;
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
-    const editor = ace.edit(this.el.nativeElement);
-    editor.session.setMode('ace/mode/json');
+    this.editor = ace.edit(this.el.nativeElement);
+    this.editor.session.setMode('ace/mode/json');
+    this.editor.setTheme('ace/theme/chrome');
+  }
+  ngOnChanges() {
+    this.editor?.setValue(this.editorData);
   }
 }
