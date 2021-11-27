@@ -1,10 +1,10 @@
 declare const ace: any;
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[appAce]',
 })
-export class AceDirective {
+export class AceDirective implements OnInit, OnChanges {
   @Input() editorData = '';
   editor: any = null;
   constructor(private el: ElementRef) {}
@@ -15,6 +15,7 @@ export class AceDirective {
     this.editor.setTheme('ace/theme/chrome');
   }
   ngOnChanges() {
-    this.editor?.setValue(this.editorData);
+    const stringData = JSON.stringify(this.editorData, null, '\t');
+    this.editor?.setValue(stringData);
   }
 }
