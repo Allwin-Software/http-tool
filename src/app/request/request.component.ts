@@ -71,6 +71,8 @@ export class RequestComponent implements OnInit {
     window.__TAURI__.http.fetch(formValue.url, fetchOptions).then((result: any) => this.processResponse(result));
   }
 
+  bodyChanged(bodyData) {}
+
   processResponse(result: any) {
     this.response = result;
   }
